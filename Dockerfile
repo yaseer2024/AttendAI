@@ -2,9 +2,9 @@
 FROM node:18-alpine AS frontend-builder
 WORKDIR /build
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install --include=dev
 COPY frontend/ ./
-RUN npx vite build
+RUN npm run build
 
 # Build Backend & Combine
 FROM python:3.10-slim

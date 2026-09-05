@@ -10,8 +10,9 @@ import numpy as np
 import pandas as pd
 from fastapi import Depends, FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import sqlite3
 
@@ -1211,3 +1212,22 @@ def delete_attendance_date(
       "new_latest_date": str(new_latest),
       "authorized_by": current_user["username"],
   })
+
+
+# ==================== SERVE FRONTEND STATIC FILES ====================
+frontend_dist = "/app/frontend/dist"
+
+if os.path.exists(frontend_dist):
+  assets_path = os.path.join(frontend_dist, "assets")
+  if os.path.exists(assets_path):
+    app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+
+  @app.get("/{full_path:path}")
+  async def serve_frontend(full_path: str):
+    if full_path.startswith("api/"):
+      raise HTTPException(status_code=404, detail="Not Found")
+    
+    file_path = os.path.join(frontend_dist, full_path)
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+      return FileResponse(file_path)
+    return FileResponse(os.path.join(frontend_dist, "index.html"))

@@ -4,7 +4,7 @@ WORKDIR /build
 COPY frontend/package*.json ./
 RUN npm install --include=dev
 COPY frontend/ ./
-RUN npx vite build
+RUN npm exec vite build
 
 # Build Backend & Combine
 FROM python:3.10-slim

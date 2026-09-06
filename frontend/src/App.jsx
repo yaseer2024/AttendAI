@@ -72,6 +72,7 @@ export default function App() {
   const [rollCall, setRollCall] = useState({});
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [dayInfo, setDayInfo] = useState({ is_holiday: false, holiday_name: null, schedule: [] });
 
   const [simMiss, setSimMiss] = useState(2);
   const [simAttend, setSimAttend] = useState(5);
@@ -263,12 +264,24 @@ export default function App() {
     }
   };
 
+  const fetchDayInspection = async (dStr) => {
+    try {
+      const res = await fetch(`${API}/timetable/inspect-day?date=${dStr}`, { headers: authHeaders() });
+      if (res.ok) {
+        const json = await res.json();
+        setDayInfo(json);
+      }
+    } catch (e) {
+      console.error("Day inspection error:", e);
+    }
+  };
+
   const fetchDaySchedule = async (dStr) => {
     try {
       const res = await fetch(`${API}/timetable/inspect-day?date=${dStr}`, { headers: authHeaders() });
       if (res.ok) {
         const json = await res.json();
-        setDaySchedule(json);
+        setDaySchedule(json.schedule || []);
         setSelectedPeriodA(null);
         setSelectedPeriodB(null);
         setSwapPreview(null);
@@ -287,6 +300,15 @@ export default function App() {
       }
     }
   }, [lwd, threshold, authToken, currentUser]);
+
+  useEffect(() => {
+    if (authToken && currentUser?.role !== "student" && tab === "overview") {
+      fetchAnalytics();
+    }
+    if (authToken && currentUser?.role !== "student" && tab === "entry") {
+      fetchDayInspection(entryDate);
+    }
+  }, [entryDate, tab]);
 
   useEffect(() => {
     if (authToken && currentUser?.role !== "student" && tab === "future_predict") {
@@ -330,6 +352,10 @@ export default function App() {
   const handleSaveAttendance = async () => {
     if (currentUser?.role === "student") {
       alert("Access Denied: Students are not authorized to mark attendance.");
+      return;
+    }
+    if (dayInfo.is_holiday) {
+      alert("Cannot commit attendance records on an official holiday.");
       return;
     }
     setSaving(true);
@@ -1538,19 +1564,24 @@ export default function App() {
                   <Calendar size={13} /> Timetable Console
                 </button>
 
-                <button
-                  onClick={() => setAllStatus("P")}
-                  className="px-3.5 py-2 bg-stone-800 hover:bg-stone-700 rounded-xl text-xs font-medium text-stone-300 transition"
-                >
-                  Mark All Present
-                </button>
-                <button
-                  onClick={handleSaveAttendance}
-                  disabled={saving || deleting}
-                  className="px-4 py-2 bg-[#1c8f7f] hover:bg-[#22a894] rounded-xl text-xs font-medium text-white transition disabled:opacity-50 shadow-sm"
-                >
-                  {saving ? "Writing..." : "Commit Records"}
-                </button>
+                {!dayInfo.is_holiday && (
+                  <>
+                    <button
+                      onClick={() => setAllStatus("P")}
+                      className="px-3.5 py-2 bg-stone-800 hover:bg-stone-700 rounded-xl text-xs font-medium text-stone-300 transition"
+                    >
+                      Mark All Present
+                    </button>
+                    <button
+                      onClick={handleSaveAttendance}
+                      disabled={saving || deleting}
+                      className="px-4 py-2 bg-[#1c8f7f] hover:bg-[#22a894] rounded-xl text-xs font-medium text-white transition disabled:opacity-50 shadow-sm"
+                    >
+                      {saving ? "Writing..." : "Commit Records"}
+                    </button>
+                  </>
+                )}
+
                 {isHOD && (
                   <button
                     onClick={handleDeleteDate}
@@ -1564,51 +1595,63 @@ export default function App() {
               </div>
             </div>
 
-            <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl overflow-hidden shadow-sm">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs whitespace-nowrap">
-                  <thead>
-                    <tr className="border-b border-stone-800 bg-stone-900/60 text-stone-400 uppercase font-semibold">
-                      <th className="p-3.5">Register No</th>
-                      <th className="p-3.5">Student Name</th>
-                      {["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((p) => (
-                        <th key={p} className="p-3.5 text-center">
-                          {p}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-stone-800/60">
-                    {(data?.students || []).map((s) => {
-                      const rKey = cleanStr(s.reg_no);
-                      return (
-                        <tr key={rKey} className="hover:bg-stone-800/30 transition">
-                          <td className="p-3.5 font-mono text-stone-400">{rKey}</td>
-                          <td className="p-3.5 font-medium text-stone-200">{s.name}</td>
-                          {["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((p) => {
-                            const val = rollCall[rKey]?.[p] || "P";
-                            return (
-                              <td key={p} className="p-3.5 text-center">
-                                <button
-                                  onClick={() => togglePeriod(rKey, p)}
-                                  className={`w-9 h-9 rounded-xl text-xs font-mono font-bold transition ${
-                                    val === "P"
-                                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
-                                      : "bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20"
-                                  }`}
-                                >
-                                  {val}
-                                </button>
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+            {dayInfo.is_holiday ? (
+              <div className="bg-[#1c1a17] border border-amber-500/30 rounded-2xl p-8 text-center space-y-3">
+                <div className="inline-flex p-3 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-1">
+                  <CalendarDays size={28} />
+                </div>
+                <h3 className="text-base font-bold text-white">{dayInfo.holiday_name}</h3>
+                <p className="text-xs text-stone-400 max-w-md mx-auto">
+                  Selected date <span className="font-mono text-stone-200">{entryDate}</span> is classified as an official holiday or non-instructional day. Attendance logging is locked.
+                </p>
               </div>
-            </div>
+            ) : (
+              <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl overflow-hidden shadow-sm">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs whitespace-nowrap">
+                    <thead>
+                      <tr className="border-b border-stone-800 bg-stone-900/60 text-stone-400 uppercase font-semibold">
+                        <th className="p-3.5">Register No</th>
+                        <th className="p-3.5">Student Name</th>
+                        {["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((p) => (
+                          <th key={p} className="p-3.5 text-center">
+                            {p}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-stone-800/60">
+                      {(data?.students || []).map((s) => {
+                        const rKey = cleanStr(s.reg_no);
+                        return (
+                          <tr key={rKey} className="hover:bg-stone-800/30 transition">
+                            <td className="p-3.5 font-mono text-stone-400">{rKey}</td>
+                            <td className="p-3.5 font-medium text-stone-200">{s.name}</td>
+                            {["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((p) => {
+                              const val = rollCall[rKey]?.[p] || "P";
+                              return (
+                                <td key={p} className="p-3.5 text-center">
+                                  <button
+                                    onClick={() => togglePeriod(rKey, p)}
+                                    className={`w-9 h-9 rounded-xl text-xs font-mono font-bold transition ${
+                                      val === "P"
+                                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20"
+                                        : "bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20"
+                                    }`}
+                                  >
+                                    {val}
+                                  </button>
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </main>

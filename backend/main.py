@@ -848,8 +848,35 @@ def export_analytics_excel(
 
 @app.get("/api/timetable/inspect-day")
 def inspect_day(date: str = Query(...)):
-  _, _, tt, _, _ = load_and_preprocess()
-  return sanitize_json(get_day_schedule_fast(date, tt))
+  active_students, _, tt, cal, _ = load_and_preprocess()
+  date_clean = parse_date_safe(date).strftime("%Y-%m-%d")
+  target_dt = pd.to_datetime(date_clean)
+  
+  cal_match = cal[cal["Calendar_Date"] == target_dt]
+  is_holiday = (
+      int(cal_match.iloc[0]["Is_Holiday"])
+      if len(cal_match) > 0 and pd.notna(cal_match.iloc[0]["Is_Holiday"])
+      else 0
+  )
+  holiday_name = (
+      str(cal_match.iloc[0]["Holiday_Name"])
+      if (len(cal_match) > 0 and pd.notna(cal_match.iloc[0]["Holiday_Name"]))
+      else None
+  )
+
+  if is_holiday == 1:
+    return sanitize_json({
+        "is_holiday": True,
+        "holiday_name": holiday_name or "Official Holiday / Non-Instructional Day",
+        "schedule": []
+    })
+
+  schedule = get_day_schedule_fast(date_clean, tt)
+  return sanitize_json({
+      "is_holiday": False,
+      "holiday_name": None,
+      "schedule": schedule
+  })
 
 
 class ExecuteSwapPayload(BaseModel):
@@ -1125,9 +1152,21 @@ def manual_entry(
 ):
   conn = get_db_connection()
   entry_ts = parse_date_safe(payload.date).strftime("%Y-%m-%d")
-  day_name = pd.to_datetime(entry_ts).day_name()
+  target_dt = pd.to_datetime(entry_ts)
 
   try:
+    cal_df = pd.read_sql("SELECT * FROM calendar", conn)
+    date_col = "Calendar_Date" if "Calendar_Date" in cal_df.columns else "Date"
+    if date_col in cal_df.columns:
+      cal_df[date_col] = pd.to_datetime(cal_df[date_col], format="mixed", dayfirst=True)
+      cal_match = cal_df[cal_df[date_col] == target_dt]
+      
+      if len(cal_match) > 0 and int(cal_match.iloc[0].get("Is_Holiday", 0)) == 1:
+        raise HTTPException(
+            status_code=400,
+            detail="Cannot commit attendance records on an official holiday."
+        )
+
     df_stu = pd.read_sql("SELECT * FROM students", conn)
 
     conn.execute(
@@ -1136,11 +1175,14 @@ def manual_entry(
     conn.commit()
 
     new_rows = []
+    day_name = target_dt.day_name()
     for _, stu in df_stu.iterrows():
       reg_str = clean_reg_str(stu["Reg No"])
       status = stu["Status"]
-      entry = payload.records.get(
-          reg_str, {f"P{i}": "P" for i in range(1, 8)}
+      entry = (
+          payload.records.get(reg_str)
+          or payload.records.get(str(stu["Reg No"]))
+          or {f"P{i}": "P" for i in range(1, 8)}
       )
 
       new_rows.append({
@@ -1171,7 +1213,6 @@ def manual_entry(
       "written": len(new_rows),
       "recorded_by": current_user["username"],
   })
-
 
 @app.delete("/api/attendance/delete-date")
 def delete_attendance_date(

@@ -567,39 +567,42 @@ export default function App() {
   // ==================== 1. FULL-SCREEN LOGIN SCREEN ====================
   if (!authToken || !currentUser) {
     return (
-      <div className="min-h-screen bg-[#07090e] flex flex-col items-center justify-center p-4 sm:p-6 text-slate-200 antialiased font-sans">
-        <div className="w-full max-w-md bg-[#0c0f17] border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+      <div className="min-h-screen bg-[#141210] flex flex-col items-center justify-center p-4 sm:p-6 text-stone-200 antialiased font-sans">
+        <div className="w-full max-w-md bg-[#1c1a17] border border-stone-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[#2bab98] to-transparent"></div>
 
           <div className="flex flex-col items-center text-center space-y-3">
-            <div className="h-16 w-16 bg-white/95 rounded-2xl p-1.5 shadow-xl border border-slate-700/60 flex items-center justify-center">
-              <img 
-                src="/logo.png" 
-                alt="AAMEC Emblem" 
-                className="h-full w-full object-contain"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span class="font-bold text-slate-900 text-sm">AAMEC</span>';
-                }}
-              />
+            <div className="relative">
+              <div className="absolute inset-0 -m-3 rounded-full bg-[#e8b84b]/20 blur-xl"></div>
+              <div className="h-16 w-16 bg-white/95 rounded-2xl p-1.5 shadow-xl border border-stone-700/60 flex items-center justify-center relative">
+                <img 
+                  src="/logo.png" 
+                  alt="AAMEC Emblem" 
+                  className="h-full w-full object-contain"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.innerHTML = '<span class="font-bold text-stone-900 text-sm">AAMEC</span>';
+                  }}
+                />
+              </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-white flex items-center justify-center gap-1.5">
+              <h1 className="text-2xl font-['Fraunces'] font-medium tracking-tight text-white flex items-center justify-center gap-2">
                 AI Prediction
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e8b84b] mb-1"></span>
               </h1>
-              <p className="text-xs text-slate-400 font-mono mt-0.5">
+              <p className="text-xs text-stone-400 mt-1">
                 Anjalai Ammal Mahalingam Engineering College
               </p>
-              <p className="text-[11px] text-slate-500">CSE Department • Attendance Portal</p>
+              <p className="text-[11px] text-stone-600">CSE Department, Attendance Portal</p>
             </div>
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono text-slate-500 tracking-wider block text-center">
-              Select Portal Role
+            <span className="text-[11px] text-stone-500 block text-center">
+              Select portal role
             </span>
-            <div className="grid grid-cols-3 gap-2 p-1 bg-slate-900/80 border border-slate-800 rounded-2xl">
+            <div className="grid grid-cols-3 gap-2 p-1 bg-stone-900/80 border border-stone-800 rounded-2xl">
               <button
                 type="button"
                 onClick={() => {
@@ -610,8 +613,8 @@ export default function App() {
                 }}
                 className={`py-2 rounded-xl text-xs font-semibold transition ${
                   activeRoleTab === "student"
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-[#1c8f7f] text-white shadow-sm"
+                    : "text-stone-400 hover:text-white"
                 }`}
               >
                 Student
@@ -626,8 +629,8 @@ export default function App() {
                 }}
                 className={`py-2 rounded-xl text-xs font-semibold transition ${
                   activeRoleTab === "faculty"
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-[#1c8f7f] text-white shadow-sm"
+                    : "text-stone-400 hover:text-white"
                 }`}
               >
                 Faculty
@@ -642,8 +645,8 @@ export default function App() {
                 }}
                 className={`py-2 rounded-xl text-xs font-semibold transition ${
                   activeRoleTab === "hod"
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-[#1c8f7f] text-white shadow-sm"
+                    : "text-stone-400 hover:text-white"
                 }`}
               >
                 HOD
@@ -651,13 +654,13 @@ export default function App() {
             </div>
           </div>
 
-          <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-3.5 text-[11px] text-slate-400 space-y-1">
+          <div className="bg-stone-900/40 border border-stone-800/80 rounded-2xl p-3.5 text-[11px] text-stone-400 space-y-1">
             {activeRoleTab === "student" && (
               <>
                 <p className="text-emerald-300 font-semibold flex items-center gap-1.5">
-                  <User size={13} /> Student Authentication
+                  <User size={13} /> Student authentication
                 </p>
-                <p>Username: Any 12-digit Register No (e.g. <span className="font-mono text-slate-200">820424104048</span>)</p>
+                <p>Username: Any 12-digit Register No (e.g. <span className="font-mono text-stone-200">820424104048</span>)</p>
                 <p>Default Password: <span className="font-mono text-emerald-400">stu@&lt;last4digits&gt;</span> (e.g. <span className="font-mono text-emerald-400">stu@4048</span>)</p>
               </>
             )}
@@ -666,7 +669,7 @@ export default function App() {
                 <p className="text-sky-300 font-semibold flex items-center gap-1.5">
                   <User size={13} /> Department Faculty
                 </p>
-                <p>Username: <span className="font-mono text-slate-200">faculty</span> or name handle</p>
+                <p>Username: <span className="font-mono text-stone-200">faculty</span> or name handle</p>
                 <p>Default Password: <span className="font-mono text-sky-400">faculty123</span></p>
               </>
             )}
@@ -675,7 +678,7 @@ export default function App() {
                 <p className="text-purple-300 font-semibold flex items-center gap-1.5">
                   <Shield size={13} /> Head of Department
                 </p>
-                <p>Username: <span className="font-mono text-slate-200">hod_cse</span></p>
+                <p>Username: <span className="font-mono text-stone-200">hod_cse</span></p>
                 <p>Default Password: <span className="font-mono text-purple-400">hod123</span></p>
               </>
             )}
@@ -683,8 +686,8 @@ export default function App() {
 
           <form onSubmit={handleLogin} className="space-y-4 pt-1">
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1.5 flex items-center gap-1.5">
-                <User size={13} className="text-indigo-400" />
+              <label className="text-xs font-medium text-stone-300 block mb-1.5 flex items-center gap-1.5">
+                <User size={13} className="text-[#4fd8c4]" />
                 {activeRoleTab === "student" ? "Register Number" : "Username"}
               </label>
               <input
@@ -693,13 +696,13 @@ export default function App() {
                 value={loginUsername}
                 onChange={(e) => setLoginUsername(e.target.value)}
                 placeholder={activeRoleTab === "student" ? "Enter 12-digit register number..." : "Enter username..."}
-                className="w-full bg-[#07090e] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-200 placeholder-slate-600 outline-none focus:border-indigo-500 transition"
+                className="w-full bg-[#141210] border border-stone-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-stone-200 placeholder-stone-600 outline-none focus:border-[#2bab98] transition"
               />
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1.5 flex items-center gap-1.5">
-                <KeyRound size={13} className="text-indigo-400" /> Password
+              <label className="text-xs font-medium text-stone-300 block mb-1.5 flex items-center gap-1.5">
+                <KeyRound size={13} className="text-[#4fd8c4]" /> Password
               </label>
               <input
                 type="password"
@@ -707,7 +710,7 @@ export default function App() {
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
                 placeholder="Enter password..."
-                className="w-full bg-[#07090e] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-200 placeholder-slate-600 outline-none focus:border-indigo-500 transition"
+                className="w-full bg-[#141210] border border-stone-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-stone-200 placeholder-stone-600 outline-none focus:border-[#2bab98] transition"
               />
             </div>
 
@@ -721,7 +724,7 @@ export default function App() {
             <button
               type="submit"
               disabled={loggingIn}
-              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl text-xs font-semibold transition shadow-md shadow-indigo-600/30 flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-[#1c8f7f] hover:bg-[#22a894] text-white py-3 rounded-xl text-xs font-semibold transition shadow-sm flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loggingIn ? (
                 <>
@@ -735,8 +738,8 @@ export default function App() {
             </button>
           </form>
 
-          <p className="text-[10px] text-slate-500 text-center font-mono">
-            Encrypted with JWT & bcrypt institutional tokens
+          <p className="text-[10px] text-stone-500 text-center">
+            Encrypted with JWT &amp; bcrypt institutional tokens
           </p>
         </div>
       </div>
@@ -770,47 +773,49 @@ export default function App() {
   });
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen overflow-hidden bg-[#07090e] text-slate-200 font-sans antialiased">
-      
+    <div className="relative flex flex-col lg:flex-row h-screen overflow-hidden bg-[#141210] text-stone-200 font-sans antialiased">
+      <div className="pointer-events-none absolute -top-32 -right-32 w-[32rem] h-[32rem] rounded-full bg-[#1c8f7f]/[0.07] blur-[120px] z-0"></div>
+      <div className="pointer-events-none absolute bottom-0 left-1/3 w-[26rem] h-[26rem] rounded-full bg-[#e8b84b]/[0.04] blur-[120px] z-0"></div>
+
       {/* MOBILE HEADER BAR */}
-      <div className="lg:hidden flex items-center justify-between bg-[#0c0f17] border-b border-slate-800 p-4 shrink-0">
+      <div className="relative z-10 lg:hidden flex items-center justify-between bg-[#1c1a17] border-b border-stone-800 p-4 shrink-0">
         <div className="flex items-center gap-2.5">
-          <div className="h-8 w-8 bg-white/95 rounded-xl p-0.5 flex items-center justify-center shadow border border-slate-700/60">
+          <div className="h-8 w-8 bg-white/95 rounded-xl p-0.5 flex items-center justify-center shadow border border-stone-700/60">
             <img src="/logo.png" alt="AAMEC" className="h-full w-full object-contain" />
           </div>
           <span className="font-semibold text-xs text-white">AI Prediction</span>
         </div>
         <button 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-xl bg-slate-800 text-slate-200"
+          className="p-2 rounded-xl bg-stone-800 text-stone-200"
         >
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {/* RESPONSIVE SIDEBAR / DRAWER */}
-      <aside className={`absolute lg:relative z-40 inset-y-0 left-0 w-64 bg-[#0c0f17] border-r border-slate-800/60 flex flex-col justify-between p-4 transition-transform duration-200 select-none ${
+      <aside className={`absolute lg:relative z-40 inset-y-0 left-0 w-64 bg-[#1c1a17] border-r border-stone-800/60 flex flex-col justify-between p-4 transition-transform duration-200 select-none ${
         mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       }`}>
         <div className="space-y-6">
           <div className="hidden lg:flex items-center gap-3 px-2 py-1.5 rounded-xl">
-            <div className="h-10 w-10 bg-white/95 rounded-xl p-0.5 flex items-center justify-center shadow-md shadow-black/40 border border-slate-700/60 overflow-hidden shrink-0">
+            <div className="h-10 w-10 bg-white/95 rounded-xl p-0.5 flex items-center justify-center shadow-md shadow-black/40 border border-stone-700/60 overflow-hidden shrink-0">
               <img 
                 src="/logo.png" 
                 alt="AAMEC Logo" 
                 className="h-full w-full object-contain"
                 onError={(e) => {
                   e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span class="font-bold text-slate-900 text-xs">AAMEC</span>';
+                  e.target.parentElement.innerHTML = '<span class="font-bold text-stone-900 text-xs">AAMEC</span>';
                 }}
               />
             </div>
             <div className="leading-tight">
               <h1 className="font-semibold text-sm tracking-tight text-white flex items-center gap-1.5">
                 AI Prediction
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e8b84b]"></span>
               </h1>
-              <p className="text-[10px] text-slate-400 font-mono tracking-wider">AAMEC • CSE Dept</p>
+              <p className="text-[10px] text-stone-400">AAMEC, CSE Dept</p>
             </div>
           </div>
 
@@ -820,11 +825,11 @@ export default function App() {
                 onClick={() => { setTab("overview"); setMobileMenuOpen(false); }}
                 className={`w-full flex items-center gap-3 px-3.5 py-3 lg:py-2.5 rounded-xl text-xs font-medium tracking-wide transition-all ${
                   tab === "overview"
-                    ? "bg-slate-800/80 text-white font-semibold border border-slate-700/60 shadow-sm"
-                    : "text-slate-400 hover:bg-slate-800/30 hover:text-slate-200"
+                    ? "bg-[#1c8f7f]/15 text-white font-semibold border border-[#1c8f7f]/40 shadow-sm"
+                    : "text-stone-400 hover:bg-stone-800/30 hover:text-stone-200"
                 }`}
               >
-                <BarChart3 size={16} className={tab === "overview" ? "text-indigo-400" : "text-slate-500"} />
+                <BarChart3 size={16} className={tab === "overview" ? "text-[#4fd8c4]" : "text-stone-500"} />
                 Class Overview
               </button>
             )}
@@ -833,11 +838,11 @@ export default function App() {
               onClick={() => { setTab("student"); setMobileMenuOpen(false); }}
               className={`w-full flex items-center gap-3 px-3.5 py-3 lg:py-2.5 rounded-xl text-xs font-medium tracking-wide transition-all ${
                 tab === "student"
-                  ? "bg-slate-800/80 text-white font-semibold border border-slate-700/60 shadow-sm"
-                  : "text-slate-400 hover:bg-slate-800/30 hover:text-slate-200"
+                  ? "bg-[#1c8f7f]/15 text-white font-semibold border border-[#1c8f7f]/40 shadow-sm"
+                  : "text-stone-400 hover:bg-stone-800/30 hover:text-stone-200"
               }`}
             >
-              <UserCheck size={16} className={tab === "student" ? "text-indigo-400" : "text-slate-500"} />
+              <UserCheck size={16} className={tab === "student" ? "text-[#4fd8c4]" : "text-stone-500"} />
               {isStudent ? "My Attendance & Compliance" : "Student Analytics"}
             </button>
 
@@ -846,11 +851,11 @@ export default function App() {
                 onClick={() => { setTab("future_predict"); setMobileMenuOpen(false); }}
                 className={`w-full flex items-center gap-3 px-3.5 py-3 lg:py-2.5 rounded-xl text-xs font-medium tracking-wide transition-all ${
                   tab === "future_predict"
-                    ? "bg-slate-800/80 text-white font-semibold border border-slate-700/60 shadow-sm"
-                    : "text-slate-400 hover:bg-slate-800/30 hover:text-slate-200"
+                    ? "bg-[#1c8f7f]/15 text-white font-semibold border border-[#1c8f7f]/40 shadow-sm"
+                    : "text-stone-400 hover:bg-stone-800/30 hover:text-stone-200"
                 }`}
               >
-                <Sparkles size={16} className={tab === "future_predict" ? "text-indigo-400" : "text-slate-500"} />
+                <Sparkles size={16} className={tab === "future_predict" ? "text-[#4fd8c4]" : "text-stone-500"} />
                 Risk Forecaster
               </button>
             )}
@@ -860,11 +865,11 @@ export default function App() {
                 onClick={() => { setTab("entry"); setMobileMenuOpen(false); }}
                 className={`w-full flex items-center gap-3 px-3.5 py-3 lg:py-2.5 rounded-xl text-xs font-medium tracking-wide transition-all ${
                   tab === "entry"
-                    ? "bg-slate-800/80 text-white font-semibold border border-slate-700/60 shadow-sm"
-                    : "text-slate-400 hover:bg-slate-800/30 hover:text-slate-200"
+                    ? "bg-[#1c8f7f]/15 text-white font-semibold border border-[#1c8f7f]/40 shadow-sm"
+                    : "text-stone-400 hover:bg-stone-800/30 hover:text-stone-200"
                 }`}
               >
-                <ClipboardCheck size={16} className={tab === "entry" ? "text-indigo-400" : "text-slate-500"} />
+                <ClipboardCheck size={16} className={tab === "entry" ? "text-[#4fd8c4]" : "text-stone-500"} />
                 Daily Roll Call
               </button>
             )}
@@ -872,10 +877,10 @@ export default function App() {
         </div>
 
         <div className="space-y-3 pt-4">
-          <div className="bg-[#10141f] border border-slate-800/80 rounded-2xl p-3.5 space-y-2 text-xs">
+          <div className="bg-[#221f1b] border border-stone-800/80 rounded-2xl p-3.5 space-y-2 text-xs">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-mono text-slate-500 tracking-wider">
-                Active Session
+              <span className="text-[11px] text-stone-500">
+                Active session
               </span>
               <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${
                 isHOD 
@@ -888,41 +893,41 @@ export default function App() {
               </span>
             </div>
 
-            <div className="flex items-center justify-between pt-1 border-t border-slate-800/60">
+            <div className="flex items-center justify-between pt-1 border-t border-stone-800/60">
               <div className="truncate pr-2">
                 <p className="font-semibold text-white truncate text-xs">{currentUser.name}</p>
-                <p className="text-[10px] font-mono text-slate-400 truncate">{cleanStr(currentUser.username)}</p>
+                <p className="text-[10px] font-mono text-stone-400 truncate">{cleanStr(currentUser.username)}</p>
               </div>
               <button
                 onClick={handleLogout}
                 title="Sign Out"
-                className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition"
+                className="p-2 rounded-lg hover:bg-stone-800 text-stone-400 hover:text-rose-400 transition"
               >
                 <LogOut size={16} />
               </button>
             </div>
           </div>
 
-          <div className="bg-[#10141f] border border-slate-800/80 rounded-2xl p-3.5 space-y-3 text-xs">
+          <div className="bg-[#221f1b] border border-stone-800/80 rounded-2xl p-3.5 space-y-3 text-xs">
             {!isStudent && (
               <>
                 <div>
-                  <label className="text-slate-400 font-medium block mb-1 text-[10px] uppercase tracking-wider flex items-center gap-1.5">
-                    <CalendarDays size={12} className="text-indigo-400" /> Last Working Day
+                  <label className="text-stone-400 font-medium block mb-1 text-[11px] flex items-center gap-1.5">
+                    <CalendarDays size={12} className="text-[#4fd8c4]" /> Last Working Day
                   </label>
                   <input
                     type="date"
                     value={lwd}
                     disabled={!isHOD}
                     onChange={(e) => updateServerLwd(e.target.value)}
-                    className="w-full bg-[#07090e] border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 font-mono text-xs focus:border-indigo-500 outline-none disabled:opacity-60"
+                    className="w-full bg-[#141210] border border-stone-800 rounded-lg px-2.5 py-1.5 text-stone-200 font-mono text-xs focus:border-[#2bab98] outline-none disabled:opacity-60"
                   />
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-slate-400 mb-1 font-medium text-[11px]">
+                  <div className="flex justify-between text-stone-400 mb-1 font-medium text-[11px]">
                     <span>Regulation Cutoff</span>
-                    <span className="text-indigo-400 font-mono font-bold">{threshold}%</span>
+                    <span className="text-[#4fd8c4] font-mono font-bold">{threshold}%</span>
                   </div>
                   <input
                     type="range"
@@ -931,15 +936,15 @@ export default function App() {
                     disabled={!isHOD}
                     value={threshold}
                     onChange={(e) => setThreshold(Number(e.target.value))}
-                    className="w-full accent-indigo-500 cursor-pointer disabled:opacity-60"
+                    className="w-full accent-[#2bab98] cursor-pointer disabled:opacity-60"
                   />
                 </div>
               </>
             )}
 
-            <div className={`pt-2 ${!isStudent ? "border-t border-slate-800/80" : ""} text-[10px] text-slate-400 flex items-center justify-between font-mono`}>
-              <span className="flex items-center gap-1.5 text-slate-400">
-                <Database size={12} className="text-indigo-400" /> Log Synced:
+            <div className={`pt-2 ${!isStudent ? "border-t border-stone-800/80" : ""} text-[10px] text-stone-400 flex items-center justify-between`}>
+              <span className="flex items-center gap-1.5 text-stone-400">
+                <Database size={12} className="text-[#4fd8c4]" /> Log Synced:
               </span>
               <span className="text-emerald-400 font-semibold font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                 {synchronizedDate}
@@ -950,7 +955,7 @@ export default function App() {
       </aside>
 
       {/* MAIN CONTENT WORKSPACE */}
-      <main className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6">
+      <main className="relative z-10 flex-1 overflow-y-auto p-4 sm:p-8 space-y-6">
         
         {/* ==================== VIEW 1: CLASS OVERVIEW ==================== */}
         {tab === "overview" && !isStudent && (
@@ -958,8 +963,8 @@ export default function App() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-white">Class Overview & Deficit Diagnostics</h2>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Cohort: <span className="text-slate-200 font-mono">{data?.students?.length || 0} enrolled</span> • {data?.total_future_periods || 0} slots remaining through {lwd}
+                <p className="text-xs text-stone-400 mt-0.5">
+                  Cohort: <span className="text-stone-200 font-mono">{data?.students?.length || 0} enrolled</span> • {data?.total_future_periods || 0} slots remaining through {lwd}
                 </p>
               </div>
 
@@ -974,7 +979,7 @@ export default function App() {
 
                 <button
                   onClick={exportDefaulterPDF}
-                  className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl text-xs font-medium transition shadow-sm border border-indigo-500/30 w-full sm:w-auto justify-center"
+                  className="flex items-center gap-2 bg-[#1c8f7f] hover:bg-[#22a894] text-white px-4 py-2.5 rounded-xl text-xs font-medium transition shadow-sm border border-[#2bab98]/30 w-full sm:w-auto justify-center"
                 >
                   <FileDown size={14} /> Export Defaulters (PDF)
                 </button>
@@ -982,41 +987,41 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                <span className="text-xs text-slate-400 font-medium">Class Attendance Mean</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-[#1c8f7f] rounded-2xl p-4 shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400 font-medium">Class Attendance Mean</span>
                 <p className="text-xl sm:text-2xl font-bold font-mono text-white mt-1">{data?.class_avg}%</p>
-                <span className="text-[10px] text-slate-500 font-mono">Cohort-wide sessions</span>
+                <span className="text-[10px] text-stone-500">Cohort-wide sessions</span>
               </div>
-              <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                <span className="text-xs text-slate-400 font-medium">Students Below {threshold}%</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-rose-500 rounded-2xl p-4 shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400 font-medium">Students Below {threshold}%</span>
                 <p className="text-xl sm:text-2xl font-bold font-mono text-rose-400 mt-1">{data?.below_threshold_count}</p>
-                <span className="text-[10px] text-slate-500 font-mono">Regulation shortfall</span>
+                <span className="text-[10px] text-stone-500">Regulation shortfall</span>
               </div>
-              <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                <span className="text-xs text-slate-400 font-medium">Flagged Deficit Risks</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-amber-500 rounded-2xl p-4 shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400 font-medium">Flagged Deficit Risks</span>
                 <p className="text-xl sm:text-2xl font-bold font-mono text-amber-400 mt-1">{data?.critical_risk_count}</p>
-                <span className="text-[10px] text-slate-500 font-mono">Subject shortfall candidates</span>
+                <span className="text-[10px] text-stone-500">Subject shortfall candidates</span>
               </div>
-              <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                <span className="text-xs text-slate-400 font-medium">Remaining Slots</span>
-                <p className="text-xl sm:text-2xl font-bold font-mono text-indigo-400 mt-1">{data?.total_future_periods}</p>
-                <span className="text-[10px] text-slate-500 font-mono">Bound strictly to {lwd}</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-[#e8b84b] rounded-2xl p-4 shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400 font-medium">Remaining Slots</span>
+                <p className="text-xl sm:text-2xl font-bold font-mono text-[#4fd8c4] mt-1">{data?.total_future_periods}</p>
+                <span className="text-[10px] text-stone-500">Bound strictly to {lwd}</span>
               </div>
             </div>
 
             {/* VISUAL SEMESTER TREND ANALYTICS & INTERACTIVE TIMELINE */}
-            <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4 sm:p-5 space-y-3 relative">
+            <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl p-4 sm:p-5 space-y-3 relative">
               <div className="flex justify-between items-center flex-wrap gap-2">
                 <div>
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+                  <h3 className="text-[13px] font-semibold text-stone-200">
                     Visual Semester Attendance Trajectory & Holiday Impact Dips
                   </h3>
-                  <p className="text-[10px] text-slate-400 mt-0.5">
+                  <p className="text-[10px] text-stone-400 mt-0.5">
                     Interactive daily bar graph tracking cohort participation against the {threshold}% regulation line
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">
+                  <span className="text-[10px] font-mono text-stone-400 bg-stone-800 px-2.5 py-1 rounded-lg border border-stone-700">
                     Total Sessions: {displayedTimeline.length}
                   </span>
                 </div>
@@ -1033,32 +1038,35 @@ export default function App() {
                       key={pt.full_date}
                       type="button"
                       onClick={() => setHoveredBarData(pt)}
-                      className={`flex-1 rounded-t transition-all duration-150 relative z-20 ${
-                        isHovered
-                          ? "bg-amber-400 ring-2 ring-amber-300 scale-105"
-                          : isDeficient
-                          ? "bg-rose-500 hover:bg-rose-400"
-                          : isWarning
-                          ? "bg-amber-500/90 hover:bg-amber-400"
-                          : "bg-indigo-600/90 hover:bg-indigo-400"
+                      className={`flex-1 rounded-t transition-all duration-150 relative z-20 hover:brightness-110 ${
+                        isHovered ? "ring-2 ring-amber-300 scale-105" : ""
                       }`}
-                      style={{ height: `${heightPct}%` }}
+                      style={{
+                        height: `${heightPct}%`,
+                        backgroundImage: isHovered
+                          ? "linear-gradient(180deg, #fbbf24, #d97706)"
+                          : isDeficient
+                          ? "linear-gradient(180deg, #fb7185, #e11d48)"
+                          : isWarning
+                          ? "linear-gradient(180deg, #fbbf24, #d97706)"
+                          : "linear-gradient(180deg, #4fd8c4, #1c8f7f)",
+                      }}
                     />
                   );
                 })}
               </div>
 
               {hoveredBarData && (
-                <div className="mt-3 p-4 bg-slate-900 border border-slate-700 rounded-2xl shadow-xl flex flex-col gap-3 animate-in fade-in">
-                  <div className="flex justify-between items-center border-b border-slate-800 pb-2">
+                <div className="mt-3 p-4 bg-stone-900 border border-stone-700 rounded-2xl shadow-xl flex flex-col gap-3 animate-in fade-in">
+                  <div className="flex justify-between items-center border-b border-stone-800 pb-2">
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-white text-xs">{hoveredBarData.display_date} ({hoveredBarData.day})</span>
-                      <span className="font-mono text-indigo-400 text-xs font-bold">{hoveredBarData.pct}%</span>
+                      <span className="font-mono text-[#4fd8c4] text-xs font-bold">{hoveredBarData.pct}%</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs">
                       <span className="text-rose-400 font-semibold font-mono">Absentees: {hoveredBarData.total_absent}</span>
-                      <span className="text-slate-400 text-[11px]">({hoveredBarData.absent_boys}B • {hoveredBarData.absent_girls}G)</span>
-                      <button onClick={() => setHoveredBarData(null)} className="text-slate-500 hover:text-white p-1">
+                      <span className="text-stone-400 text-[11px]">({hoveredBarData.absent_boys}B • {hoveredBarData.absent_girls}G)</span>
+                      <button onClick={() => setHoveredBarData(null)} className="text-stone-500 hover:text-white p-1">
                         <X size={14} />
                       </button>
                     </div>
@@ -1070,7 +1078,7 @@ export default function App() {
                     ) : (
                       <div className="flex flex-wrap gap-1.5">
                         {hoveredBarData.absentees.map((a) => (
-                          <span key={a.reg_no} className="px-2 py-1 rounded-lg bg-slate-800 text-[11px] text-slate-200 border border-slate-700 flex items-center gap-1">
+                          <span key={a.reg_no} className="px-2 py-1 rounded-lg bg-stone-800 text-[11px] text-stone-200 border border-stone-700 flex items-center gap-1">
                             <span className="font-medium text-white">{a.name}</span>
                             <span className="text-rose-400 font-mono text-[10px]">({a.missed_periods}p)</span>
                           </span>
@@ -1082,11 +1090,11 @@ export default function App() {
               )}
             </div>
 
-            <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl overflow-hidden shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs whitespace-nowrap">
                   <thead>
-                    <tr className="border-b border-slate-800 bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                    <tr className="border-b border-stone-800 bg-stone-900/60 text-stone-400 uppercase font-semibold">
                       <th className="p-3.5">Register No</th>
                       <th className="p-3.5">Student Name</th>
                       <th className="p-3.5">Overall %</th>
@@ -1097,7 +1105,7 @@ export default function App() {
                       <th className="p-3.5">Risk Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-stone-800/60">
                     {(data?.students || []).map((s) => (
                       <tr
                         key={cleanStr(s.reg_no)}
@@ -1105,13 +1113,13 @@ export default function App() {
                           setSelectedStudent(s);
                           setTab("student");
                         }}
-                        className="cursor-pointer hover:bg-slate-800/40 transition"
+                        className="cursor-pointer hover:bg-stone-800/40 transition"
                       >
-                        <td className="p-3.5 font-mono text-slate-400">{cleanStr(s.reg_no)}</td>
-                        <td className="p-3.5 font-medium text-slate-200">{s.name}</td>
+                        <td className="p-3.5 font-mono text-stone-400">{cleanStr(s.reg_no)}</td>
+                        <td className="p-3.5 font-medium text-stone-200">{s.name}</td>
                         <td className="p-3.5 font-semibold font-mono text-white">{s.current_pct}%</td>
-                        <td className="p-3.5 font-mono text-slate-300">{s.theory_pct}%</td>
-                        <td className="p-3.5 font-mono text-slate-300">{s.lab_pct}%</td>
+                        <td className="p-3.5 font-mono text-stone-300">{s.theory_pct}%</td>
+                        <td className="p-3.5 font-mono text-stone-300">{s.lab_pct}%</td>
                         <td className="p-3.5 font-mono">
                           {s.critical_subjects_count > 0 ? (
                             <span className="text-rose-400 font-medium">{s.critical_subjects_count} Deficient</span>
@@ -1143,11 +1151,11 @@ export default function App() {
         {/* ==================== VIEW 2: STUDENT DRILLDOWN / MY COMPLIANCE ==================== */}
         {tab === "student" && activeStudent && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-800 pb-4">
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-white">{activeStudent.name}</h2>
-                <div className="flex items-center gap-2 mt-1 text-xs text-slate-400 flex-wrap">
-                  <span className="font-mono text-indigo-400">{cleanStr(activeStudent.reg_no)}</span>
+                <div className="flex items-center gap-2 mt-1 text-xs text-stone-400 flex-wrap">
+                  <span className="font-mono text-[#4fd8c4]">{cleanStr(activeStudent.reg_no)}</span>
                   <span>•</span>
                   <span>{activeStudent.gender === "M" ? "Male Student" : "Female Student"}</span>
                   <span>•</span>
@@ -1157,14 +1165,14 @@ export default function App() {
 
               <div className="flex items-center gap-3 flex-wrap">
                 {!isStudent && data?.students && (
-                  <div className="flex items-center gap-2 bg-[#0c0f17] border border-slate-800 rounded-xl px-2 py-1 shadow-sm w-full sm:w-auto">
-                    <Search size={14} className="text-slate-500 ml-1" />
+                  <div className="flex items-center gap-2 bg-[#1c1a17] border border-stone-800 rounded-xl px-2 py-1 shadow-sm w-full sm:w-auto">
+                    <Search size={14} className="text-stone-500 ml-1" />
                     <input
                       type="text"
                       placeholder="Filter student..."
                       value={studentDrillSearch}
                       onChange={(e) => setStudentDrillSearch(e.target.value)}
-                      className="bg-transparent text-xs text-white placeholder-slate-500 outline-none w-28 font-mono"
+                      className="bg-transparent text-xs text-white placeholder-stone-500 outline-none w-28 font-mono"
                     />
                     <select
                       value={cleanStr(activeStudent.reg_no)}
@@ -1173,7 +1181,7 @@ export default function App() {
                         const found = data.students.find((s) => cleanStr(s.reg_no) === targetReg);
                         if (found) setSelectedStudent(found);
                       }}
-                      className="bg-[#10141f] border border-slate-700 text-xs font-mono text-indigo-300 rounded-lg px-2 py-1 outline-none cursor-pointer max-w-[160px]"
+                      className="bg-[#221f1b] border border-stone-700 text-xs font-mono text-[#8ff0dc] rounded-lg px-2 py-1 outline-none cursor-pointer max-w-[160px]"
                     >
                       {filteredCohort.map((s) => (
                         <option key={cleanStr(s.reg_no)} value={cleanStr(s.reg_no)}>
@@ -1197,67 +1205,67 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <div className="bg-[#0c0f17] border border-slate-800/80 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400">Overall Attendance</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-[#1c8f7f] p-4 rounded-2xl shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400">Overall Attendance</span>
                 <p className="text-xl sm:text-2xl font-bold font-mono mt-1 text-white">{activeStudent.current_pct}%</p>
-                <span className="text-[10px] text-slate-500 font-mono">
+                <span className="text-[10px] text-stone-500 font-mono">
                   {activeStudent.attended} / {activeStudent.conducted} periods
                 </span>
               </div>
-              <div className="bg-[#0c0f17] border border-slate-800/80 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400">Safe Allowed Skips</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-emerald-500 p-4 rounded-2xl shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400">Safe Allowed Skips</span>
                 <p className="text-xl sm:text-2xl font-bold font-mono mt-1 text-emerald-400">{activeStudent.safe_skips}</p>
-                <span className="text-[10px] text-slate-500 font-mono">Before breaching {threshold}%</span>
+                <span className="text-[10px] text-stone-500">Before breaching {threshold}%</span>
               </div>
-              <div className="bg-[#0c0f17] border border-slate-800/80 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400">Recovery Classes</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-rose-500 p-4 rounded-2xl shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400">Recovery Classes</span>
                 <p className="text-xl sm:text-2xl font-bold font-mono mt-1 text-rose-400">{activeStudent.recovery_needed}</p>
-                <span className="text-[10px] text-slate-500 font-mono">Target to restore {threshold}%</span>
+                <span className="text-[10px] text-stone-500">Target to restore {threshold}%</span>
               </div>
-              <div className="bg-[#0c0f17] border border-slate-800/80 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400">Projected Standing</span>
-                <p className="text-xl sm:text-2xl font-bold font-mono mt-1 text-indigo-400">{activeStudent.projected_pct}%</p>
-                <span className="text-[10px] text-slate-500 font-mono">Forecasted to LWD</span>
+              <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-[#e8b84b] p-4 rounded-2xl shadow-lg shadow-black/20">
+                <span className="text-xs text-stone-400">Projected Standing</span>
+                <p className="text-xl sm:text-2xl font-bold font-mono mt-1 text-[#4fd8c4]">{activeStudent.projected_pct}%</p>
+                <span className="text-[10px] text-stone-500">Forecasted to LWD</span>
               </div>
             </div>
 
-            <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4 sm:p-5 space-y-3">
+            <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl p-4 sm:p-5 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Clock size={16} className="text-indigo-400" />
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+                  <Clock size={16} className="text-[#4fd8c4]" />
+                  <h3 className="text-[13px] font-semibold text-stone-200">
                     Highest Risk Absenteeism Dates (through {lwd})
                   </h3>
                 </div>
               </div>
 
               {loadingForecast ? (
-                <div className="flex items-center justify-center py-6 text-xs text-indigo-400 font-mono">
+                <div className="flex items-center justify-center py-6 text-xs text-[#4fd8c4] font-mono">
                   <RefreshCw className="animate-spin mr-2" size={15} /> Calculating risk matrix...
                 </div>
               ) : studentUpcomingDays.length === 0 ? (
-                <div className="text-xs text-slate-400 font-medium py-3 text-center">
+                <div className="text-xs text-stone-400 font-medium py-3 text-center">
                   No scheduled instructional days between current date and {lwd}.
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {studentUpcomingDays.map((risk) => (
-                    <div key={risk.date} className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 space-y-1.5">
+                    <div key={risk.date} className="bg-stone-900/60 border border-stone-800 rounded-xl p-3.5 space-y-1.5">
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-semibold text-white">{risk.display_date}</span>
-                        <span className="text-[10px] font-mono text-slate-400">{risk.day}</span>
+                        <span className="text-[10px] font-mono text-stone-400">{risk.day}</span>
                       </div>
                       <div className="flex justify-between items-center text-xs">
-                        <span className="text-slate-400">Absence Probability:</span>
+                        <span className="text-stone-400">Absence Probability:</span>
                         <span className={`font-mono font-bold ${
-                          risk.probability >= 20 ? "text-rose-400" : (risk.probability >= 10 ? "text-amber-400" : "text-indigo-300")
+                          risk.probability >= 20 ? "text-rose-400" : (risk.probability >= 10 ? "text-amber-400" : "text-[#8ff0dc]")
                         }`}>
                           {risk.probability}%
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-400 leading-snug border-t border-slate-800 pt-1.5">
+                      <div className="text-[10px] text-stone-400 leading-snug border-t border-stone-800 pt-1.5">
                         {risk.reasons.slice(0, 1).map((r, i) => (
-                          <span key={i} className="text-slate-300">• {r}</span>
+                          <span key={i} className="text-stone-300">• {r}</span>
                         ))}
                       </div>
                     </div>
@@ -1266,11 +1274,11 @@ export default function App() {
               )}
             </div>
 
-            <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl overflow-hidden shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs whitespace-nowrap">
                   <thead>
-                    <tr className="border-b border-slate-800 bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                    <tr className="border-b border-stone-800 bg-stone-900/60 text-stone-400 uppercase font-semibold">
                       <th className="p-3.5">Code</th>
                       <th className="p-3.5">Course Name</th>
                       <th className="p-3.5">Faculty</th>
@@ -1283,17 +1291,17 @@ export default function App() {
                       <th className="p-3.5">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-stone-800/60">
                     {(activeStudent.subjects || []).map((sub) => (
-                      <tr key={`${sub.code}-${sub.name}`} className="hover:bg-slate-800/20">
-                        <td className="p-3.5 font-mono text-slate-300 font-semibold">{sub.code}</td>
-                        <td className="p-3.5 font-medium text-slate-200">{sub.name}</td>
-                        <td className="p-3.5 text-slate-400">{sub.faculty}</td>
+                      <tr key={`${sub.code}-${sub.name}`} className="hover:bg-stone-800/20">
+                        <td className="p-3.5 font-mono text-stone-300 font-semibold">{sub.code}</td>
+                        <td className="p-3.5 font-medium text-stone-200">{sub.name}</td>
+                        <td className="p-3.5 text-stone-400">{sub.faculty}</td>
                         <td className="p-3.5">
                           <span className={`px-2 py-0.5 rounded text-[10px] font-medium border ${
                             sub.type === "Theory" 
-                              ? "bg-slate-800 text-slate-300 border-slate-700" 
-                              : "bg-indigo-950 text-indigo-300 border-indigo-800"
+                              ? "bg-stone-800 text-stone-300 border-stone-700" 
+                              : "bg-[#123832] text-[#8ff0dc] border-[#1c8f7f]"
                           }`}>
                             {sub.type}
                           </span>
@@ -1321,14 +1329,14 @@ export default function App() {
               </div>
             </div>
 
-            <div className="bg-[#0c0f17] border border-indigo-950/80 rounded-2xl p-4 sm:p-6 space-y-3">
-              <div className="flex items-center gap-2 text-indigo-400 font-semibold text-xs uppercase tracking-wider">
+            <div className="bg-[#1c1a17] border border-[#123832]/80 rounded-2xl p-4 sm:p-6 space-y-3">
+              <div className="flex items-center gap-2 text-[#4fd8c4] font-semibold text-xs">
                 <SlidersHorizontal size={15} /> What-If Attendance Planning Simulator
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-1">
                 <div>
                   <div className="flex justify-between text-xs mb-1.5">
-                    <span className="text-slate-400">Simulate Missing Future Periods:</span>
+                    <span className="text-stone-400">Simulate Missing Future Periods:</span>
                     <span className="font-mono font-bold text-rose-400">{simMiss}</span>
                   </div>
                   <input
@@ -1342,7 +1350,7 @@ export default function App() {
                 </div>
                 <div>
                   <div className="flex justify-between text-xs mb-1.5">
-                    <span className="text-slate-400">Simulate Attending Future Periods:</span>
+                    <span className="text-stone-400">Simulate Attending Future Periods:</span>
                     <span className="font-mono font-bold text-emerald-400">{simAttend}</span>
                   </div>
                   <input
@@ -1362,9 +1370,9 @@ export default function App() {
                 const sPct = sCond > 0 ? ((sAtt / sCond) * 100).toFixed(1) : 0;
                 const diff = (sPct - activeStudent.current_pct).toFixed(1);
                 return (
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-slate-900/80 rounded-xl border border-slate-800 mt-2 text-xs gap-3">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-stone-900/80 rounded-xl border border-stone-800 mt-2 text-xs gap-3">
                     <div>
-                      <p className="text-slate-400">Projected Attendance after simulation:</p>
+                      <p className="text-stone-400">Projected Attendance after simulation:</p>
                       <p className="text-lg font-bold font-mono mt-0.5 text-white">
                         {sPct}%{" "}
                         <span className={`text-xs font-semibold ${diff >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
@@ -1392,77 +1400,77 @@ export default function App() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h2 className="text-lg sm:text-xl font-semibold text-white">Future Date Attendance & Absentee Predictor</h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-stone-400 mt-0.5">
                   Probabilistic absence forecast based on timetable and student habits
                 </p>
               </div>
 
               <div className="flex items-center gap-2 text-xs">
-                <label className="text-slate-400 font-medium">Target Date:</label>
+                <label className="text-stone-400 font-medium">Target Date:</label>
                 <input
                   type="date"
                   value={targetPredictDate}
                   onChange={(e) => setTargetPredictDate(e.target.value)}
-                  className="bg-[#0c0f17] border border-slate-800 rounded-lg px-3 py-2 font-mono text-slate-200 outline-none focus:border-indigo-500"
+                  className="bg-[#1c1a17] border border-stone-800 rounded-lg px-3 py-2 font-mono text-stone-200 outline-none focus:border-[#2bab98]"
                 />
               </div>
             </div>
 
             {loadingPrediction ? (
-              <div className="h-48 flex items-center justify-center text-xs text-indigo-400 font-mono">
+              <div className="h-48 flex items-center justify-center text-xs text-[#4fd8c4] font-mono">
                 <RefreshCw className="animate-spin mr-2" size={16} /> Computing behavioral projections...
               </div>
             ) : classPrediction ? (
               classPrediction.is_working_day === false ? (
                 <div className="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-center space-y-1 text-xs">
                   <h3 className="font-semibold text-sm">{classPrediction.date} ({classPrediction.day}) is not an active instructional session.</h3>
-                  <p className="text-slate-400">Classification: {classPrediction.holiday_name}</p>
+                  <p className="text-stone-400">Classification: {classPrediction.holiday_name}</p>
                 </div>
               ) : (
                 <div className="space-y-5">
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                      <span className="text-xs text-slate-400 font-medium">Forecasted Attendance</span>
-                      <p className="text-xl font-bold font-mono text-indigo-400 mt-1">{classPrediction.expected_attendance_pct}%</p>
-                      <span className="text-[10px] text-slate-500 font-mono">{classPrediction.day} timetable</span>
+                    <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-[#1c8f7f] rounded-2xl p-4 shadow-lg shadow-black/20">
+                      <span className="text-xs text-stone-400 font-medium">Forecasted Attendance</span>
+                      <p className="text-xl font-bold font-mono text-[#4fd8c4] mt-1">{classPrediction.expected_attendance_pct}%</p>
+                      <span className="text-[10px] text-stone-500">{classPrediction.day} timetable</span>
                     </div>
-                    <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                      <span className="text-xs text-slate-400 font-medium">Predicted Absentees</span>
+                    <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-rose-500 rounded-2xl p-4 shadow-lg shadow-black/20">
+                      <span className="text-xs text-stone-400 font-medium">Predicted Absentees</span>
                       <p className="text-xl font-bold font-mono text-rose-400 mt-1">{classPrediction.expected_absent_count} students</p>
-                      <span className="text-[10px] text-slate-500 font-mono">Estimated non-attendance</span>
+                      <span className="text-[10px] text-stone-500">Estimated non-attendance</span>
                     </div>
-                    <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                      <span className="text-xs text-slate-400 font-medium">Predicted Present</span>
+                    <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-stone-600 rounded-2xl p-4 shadow-lg shadow-black/20">
+                      <span className="text-xs text-stone-400 font-medium">Predicted Present</span>
                       <p className="text-xl font-bold font-mono text-white mt-1">{classPrediction.expected_present_count} students</p>
-                      <span className="text-[10px] text-slate-500 font-mono">out of cohort</span>
+                      <span className="text-[10px] text-stone-500">out of cohort</span>
                     </div>
-                    <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                      <span className="text-xs text-slate-400 font-medium">Scheduled Courses</span>
-                      <p className="text-xl font-bold font-mono text-slate-200 mt-1">{classPrediction.scheduled_courses?.length || 0} periods</p>
-                      <span className="text-[10px] text-slate-500 font-mono">Instructional slots</span>
+                    <div className="bg-[#1c1a17] border border-stone-800/80 border-t-2 border-t-[#e8b84b] rounded-2xl p-4 shadow-lg shadow-black/20">
+                      <span className="text-xs text-stone-400 font-medium">Scheduled Courses</span>
+                      <p className="text-xl font-bold font-mono text-stone-200 mt-1">{classPrediction.scheduled_courses?.length || 0} periods</p>
+                      <span className="text-[10px] text-stone-500">Instructional slots</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl p-4">
-                    <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3">
+                  <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl p-4">
+                    <h3 className="text-[13px] font-semibold text-stone-300 mb-3">
                       Scheduled Timetable for {classPrediction.date} ({classPrediction.day})
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                       {(classPrediction.scheduled_courses || []).map((c) => (
-                        <div key={c.period} className="bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-center space-y-1">
-                          <span className="text-[10px] font-mono text-indigo-400 font-bold">P{c.period} • {c.type}</span>
+                        <div key={c.period} className="bg-stone-900 border border-stone-800 p-2.5 rounded-xl text-center space-y-1">
+                          <span className="text-[10px] font-mono text-[#4fd8c4] font-bold">P{c.period} • {c.type}</span>
                           <p className="text-xs font-bold font-mono text-white truncate">{c.code}</p>
-                          <p className="text-[10px] text-slate-400 truncate">{c.name}</p>
+                          <p className="text-[10px] text-stone-400 truncate">{c.name}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl overflow-hidden shadow-sm">
+                  <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl overflow-hidden shadow-sm">
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-xs whitespace-nowrap">
                         <thead>
-                          <tr className="border-b border-slate-800 bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                          <tr className="border-b border-stone-800 bg-stone-900/60 text-stone-400 uppercase font-semibold">
                             <th className="p-3.5">Register No</th>
                             <th className="p-3.5">Student Name</th>
                             <th className="p-3.5">Gender</th>
@@ -1471,12 +1479,12 @@ export default function App() {
                             <th className="p-3.5">Contributing Factors</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-800/60">
+                        <tbody className="divide-y divide-stone-800/60">
                           {(classPrediction.student_predictions || []).map((p) => (
-                            <tr key={cleanStr(p.reg_no)} className="hover:bg-slate-800/30">
-                              <td className="p-3.5 font-mono text-slate-400">{cleanStr(p.reg_no)}</td>
-                              <td className="p-3.5 font-medium text-slate-200">{p.name}</td>
-                              <td className="p-3.5 text-[11px] text-slate-400 font-mono">
+                            <tr key={cleanStr(p.reg_no)} className="hover:bg-stone-800/30">
+                              <td className="p-3.5 font-mono text-stone-400">{cleanStr(p.reg_no)}</td>
+                              <td className="p-3.5 font-medium text-stone-200">{p.name}</td>
+                              <td className="p-3.5 text-[11px] text-stone-400 font-mono">
                                 {p.gender === "M" ? "Male" : "Female"}
                               </td>
                               <td className="p-3.5 font-mono font-bold text-white">{p.probability}%</td>
@@ -1491,7 +1499,7 @@ export default function App() {
                                   {p.tier}
                                 </span>
                               </td>
-                              <td className="p-3.5 text-slate-300 text-xs">{p.reasons.join(" • ")}</td>
+                              <td className="p-3.5 text-stone-300 text-xs">{p.reasons.join(" • ")}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -1510,7 +1518,7 @@ export default function App() {
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-white">Daily Roll Call Entry</h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-stone-400 mt-0.5">
                   Period-by-period manual attendance logging written directly to Excel storage
                 </p>
               </div>
@@ -1519,27 +1527,27 @@ export default function App() {
                   type="date"
                   value={entryDate}
                   onChange={(e) => setEntryDate(e.target.value)}
-                  className="bg-[#0c0f17] border border-slate-800 rounded-xl px-3 py-2 text-xs font-mono text-slate-200 outline-none"
+                  className="bg-[#1c1a17] border border-stone-800 rounded-xl px-3 py-2 text-xs font-mono text-stone-200 outline-none"
                 />
                 
                 <button
                   type="button"
                   onClick={() => setShowSwapModal(true)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 bg-indigo-950/40 hover:bg-indigo-900/60 border border-indigo-700/60 text-indigo-300 rounded-xl text-xs font-medium transition"
+                  className="flex items-center gap-1.5 px-3.5 py-2 bg-[#123832]/40 hover:bg-[#1a4a42]/60 border border-[#1c8f7f]/60 text-[#8ff0dc] rounded-xl text-xs font-medium transition"
                 >
                   <Calendar size={13} /> Timetable Console
                 </button>
 
                 <button
                   onClick={() => setAllStatus("P")}
-                  className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-medium text-slate-300 transition"
+                  className="px-3.5 py-2 bg-stone-800 hover:bg-stone-700 rounded-xl text-xs font-medium text-stone-300 transition"
                 >
                   Mark All Present
                 </button>
                 <button
                   onClick={handleSaveAttendance}
                   disabled={saving || deleting}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-medium text-white transition disabled:opacity-50 shadow-sm"
+                  className="px-4 py-2 bg-[#1c8f7f] hover:bg-[#22a894] rounded-xl text-xs font-medium text-white transition disabled:opacity-50 shadow-sm"
                 >
                   {saving ? "Writing..." : "Commit Records"}
                 </button>
@@ -1556,11 +1564,11 @@ export default function App() {
               </div>
             </div>
 
-            <div className="bg-[#0c0f17] border border-slate-800/80 rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-[#1c1a17] border border-stone-800/80 rounded-2xl overflow-hidden shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs whitespace-nowrap">
                   <thead>
-                    <tr className="border-b border-slate-800 bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                    <tr className="border-b border-stone-800 bg-stone-900/60 text-stone-400 uppercase font-semibold">
                       <th className="p-3.5">Register No</th>
                       <th className="p-3.5">Student Name</th>
                       {["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((p) => (
@@ -1570,13 +1578,13 @@ export default function App() {
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-stone-800/60">
                     {(data?.students || []).map((s) => {
                       const rKey = cleanStr(s.reg_no);
                       return (
-                        <tr key={rKey} className="hover:bg-slate-800/30 transition">
-                          <td className="p-3.5 font-mono text-slate-400">{rKey}</td>
-                          <td className="p-3.5 font-medium text-slate-200">{s.name}</td>
+                        <tr key={rKey} className="hover:bg-stone-800/30 transition">
+                          <td className="p-3.5 font-mono text-stone-400">{rKey}</td>
+                          <td className="p-3.5 font-medium text-stone-200">{s.name}</td>
                           {["P1", "P2", "P3", "P4", "P5", "P6", "P7"].map((p) => {
                             const val = rollCall[rKey]?.[p] || "P";
                             return (
@@ -1608,22 +1616,22 @@ export default function App() {
       {/* ==================== TIMETABLE CONSOLE MODAL ==================== */}
       {showSwapModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 z-50 animate-in fade-in">
-          <div className="bg-[#0c0f17] border border-slate-800 rounded-3xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
+          <div className="bg-[#1c1a17] border border-stone-800 rounded-3xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
             
             {/* Modal Header */}
-            <div className="flex justify-between items-center border-b border-slate-800 pb-3 shrink-0">
+            <div className="flex justify-between items-center border-b border-stone-800 pb-3 shrink-0">
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Calendar size={16} className="text-indigo-400" />
+                  <Calendar size={16} className="text-[#4fd8c4]" />
                   Timetable Adjustment Console
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-[11px] text-stone-400 mt-0.5">
                   Exchange two periods or assign a one-way substitute teacher takeover
                 </p>
               </div>
               <button
                 onClick={() => setShowSwapModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white"
+                className="p-1 rounded-lg hover:bg-stone-800 text-stone-400 hover:text-white"
               >
                 <X size={18} />
               </button>
@@ -1631,19 +1639,19 @@ export default function App() {
 
             {/* Modal Scrollable Body */}
             <div className="overflow-y-auto space-y-4 pr-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-stone-900/80 p-3 rounded-2xl border border-stone-800">
                 <div>
-                  <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block mb-1">Session Date:</span>
+                  <span className="text-[11px] text-stone-400 font-medium block mb-1">Session date</span>
                   <input
                     type="date"
                     value={swapDate}
                     onChange={(e) => setSwapDate(e.target.value)}
-                    className="w-full bg-[#07090e] border border-slate-800 rounded-xl px-3 py-2 text-xs font-mono text-white outline-none focus:border-indigo-500"
+                    className="w-full bg-[#141210] border border-stone-800 rounded-xl px-3 py-2 text-xs font-mono text-white outline-none focus:border-[#2bab98]"
                   />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block mb-1">Action Type:</span>
-                  <div className="grid grid-cols-2 gap-1.5 bg-[#07090e] p-1 rounded-xl border border-slate-800">
+                  <span className="text-[11px] text-stone-400 font-medium block mb-1">Action type</span>
+                  <div className="grid grid-cols-2 gap-1.5 bg-[#141210] p-1 rounded-xl border border-stone-800">
                     <button
                       type="button"
                       onClick={() => {
@@ -1653,7 +1661,7 @@ export default function App() {
                         setSwapPreview(null);
                       }}
                       className={`py-1.5 rounded-lg text-xs font-semibold transition ${
-                        swapMode === "swap" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-white"
+                        swapMode === "swap" ? "bg-[#1c8f7f] text-white" : "text-stone-400 hover:text-white"
                       }`}
                     >
                       Mutual Swap
@@ -1667,7 +1675,7 @@ export default function App() {
                         setSwapPreview(null);
                       }}
                       className={`py-1.5 rounded-lg text-xs font-semibold transition ${
-                        swapMode === "takeover" ? "bg-emerald-600 text-white" : "text-slate-400 hover:text-white"
+                        swapMode === "takeover" ? "bg-emerald-600 text-white" : "text-stone-400 hover:text-white"
                       }`}
                     >
                       Takeover
@@ -1676,7 +1684,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="text-[11px] text-slate-400 bg-slate-900/40 p-2.5 rounded-xl border border-slate-800/80">
+              <div className="text-[11px] text-stone-400 bg-stone-900/40 p-2.5 rounded-xl border border-stone-800/80">
                 {swapMode === "swap" ? (
                   <span><strong>Mutual Swap:</strong> Select Slot 1, then Slot 2 to exchange courses.</span>
                 ) : (
@@ -1685,8 +1693,8 @@ export default function App() {
               </div>
 
               <div className="space-y-2">
-                <span className="text-[10px] uppercase font-mono text-slate-500 tracking-wider">
-                  Scheduled Periods ({daySchedule.length} Slots)
+                <span className="text-[11px] text-stone-500">
+                  Scheduled periods ({daySchedule.length} slots)
                 </span>
                 <div className="grid grid-cols-3 sm:grid-cols-7 gap-2">
                   {daySchedule.map((slot) => {
@@ -1700,23 +1708,23 @@ export default function App() {
                         onClick={() => handleStageSwap(slot.period)}
                         className={`p-2.5 rounded-2xl border text-center transition flex flex-col justify-between h-28 relative ${
                           isSelected
-                            ? "bg-indigo-600/30 border-indigo-400 ring-2 ring-indigo-500 text-white"
+                            ? "bg-[#1c8f7f]/30 border-[#4fd8c4] ring-2 ring-[#2bab98] text-white"
                             : slot.is_swapped
-                            ? "bg-amber-950/20 border-amber-500/40 text-slate-200"
-                            : "bg-slate-900/50 border-slate-800 hover:border-slate-700 text-slate-300"
+                            ? "bg-amber-950/20 border-amber-500/40 text-stone-200"
+                            : "bg-stone-900/50 border-stone-800 hover:border-stone-700 text-stone-300"
                         }`}
                       >
                         <div className="flex justify-between items-center w-full">
-                          <span className="text-[10px] font-mono font-bold text-indigo-400">P{slot.period}</span>
+                          <span className="text-[10px] font-mono font-bold text-[#4fd8c4]">P{slot.period}</span>
                           {slot.is_swapped && (
                             <span className="h-1.5 w-1.5 rounded-full bg-amber-400" title="Override Active"></span>
                           )}
                         </div>
                         <div className="my-auto">
                           <p className="font-bold text-xs truncate">{slot.code}</p>
-                          <p className="text-[9px] text-slate-400 truncate">{slot.faculty}</p>
+                          <p className="text-[9px] text-stone-400 truncate">{slot.faculty}</p>
                         </div>
-                        <span className="text-[9px] text-slate-500 uppercase">{slot.type}</span>
+                        <span className="text-[9px] text-stone-500">{slot.type}</span>
                       </button>
                     );
                   })}
@@ -1724,26 +1732,26 @@ export default function App() {
               </div>
 
               {swapPreview ? (
-                <div className="bg-indigo-950/30 border border-indigo-500/30 rounded-2xl p-4 space-y-3">
-                  <h4 className="text-xs font-bold text-indigo-300 uppercase tracking-wider flex items-center gap-2">
+                <div className="bg-[#123832]/30 border border-[#2bab98]/30 rounded-2xl p-4 space-y-3">
+                  <h4 className="text-xs font-bold text-[#8ff0dc] flex items-center gap-2">
                     <ArrowUpDown size={14} /> Stage Review: Verify Before Committing
                   </h4>
 
                   {swapMode === "swap" ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                      <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
-                        <span className="text-[10px] font-mono text-slate-400">New Slot: Period {swapPreview.slotA.period}</span>
+                      <div className="bg-stone-900/80 p-3 rounded-xl border border-stone-800 space-y-1">
+                        <span className="text-[10px] font-mono text-stone-400">New Slot: Period {swapPreview.slotA.period}</span>
                         <p className="font-bold text-white">{swapPreview.slotB.code} ({swapPreview.slotB.name})</p>
-                        <p className="text-[11px] text-indigo-300">{swapPreview.slotB.faculty}</p>
+                        <p className="text-[11px] text-[#8ff0dc]">{swapPreview.slotB.faculty}</p>
                       </div>
-                      <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 space-y-1">
-                        <span className="text-[10px] font-mono text-slate-400">New Slot: Period {swapPreview.slotB.period}</span>
+                      <div className="bg-stone-900/80 p-3 rounded-xl border border-stone-800 space-y-1">
+                        <span className="text-[10px] font-mono text-stone-400">New Slot: Period {swapPreview.slotB.period}</span>
                         <p className="font-bold text-white">{swapPreview.slotA.code} ({swapPreview.slotA.name})</p>
-                        <p className="text-[11px] text-indigo-300">{swapPreview.slotA.faculty}</p>
+                        <p className="text-[11px] text-[#8ff0dc]">{swapPreview.slotA.faculty}</p>
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 text-xs space-y-1.5">
+                    <div className="bg-stone-900/80 p-3.5 rounded-xl border border-stone-800 text-xs space-y-1.5">
                       <div className="flex items-center gap-2 text-emerald-400 font-bold">
                         <span>Takeover Confirmed:</span>
                         <span>Period {swapPreview.slotB.period}</span>
@@ -1762,7 +1770,7 @@ export default function App() {
                         setSelectedPeriodB(null);
                         setSwapPreview(null);
                       }}
-                      className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-xl text-xs font-semibold transition"
+                      className="flex-1 bg-stone-800 hover:bg-stone-700 text-stone-300 py-2 rounded-xl text-xs font-semibold transition"
                     >
                       Cancel
                     </button>
@@ -1770,20 +1778,20 @@ export default function App() {
                       type="button"
                       disabled={confirmingSwap}
                       onClick={handleCommitSwap}
-                      className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-xl text-xs font-bold transition shadow-md disabled:opacity-50"
+                      className="flex-1 bg-[#1c8f7f] hover:bg-[#22a894] text-white py-2 rounded-xl text-xs font-bold transition shadow-md disabled:opacity-50"
                     >
                       {confirmingSwap ? "Committing..." : "Confirm & Commit"}
                     </button>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-2 text-xs text-slate-500">
+                <div className="text-center py-2 text-xs text-stone-500">
                   {!selectedPeriodA ? "Select Slot 1..." : "Select Slot 2..."}
                 </div>
               )}
 
               {daySchedule.some((s) => s.is_swapped) && (
-                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs flex-wrap gap-2">
+                <div className="pt-3 border-t border-stone-800/80 flex items-center justify-between text-xs flex-wrap gap-2">
                   <span className="text-amber-400 font-medium">Custom schedule active on {swapDate}</span>
                   <button
                     type="button"
